@@ -6,21 +6,7 @@
  */
 
 /**
- * Plugin Name: Genesis Simple Hooks
- * Plugin URI: http://www.studiopress.com/plugins/simple-hooks
- *
- * Description: Genesis Simple Hooks allows you easy access to the 50+ Action Hooks in the Genesis Theme.
- *
- * Author: StudioPress
- * Author URI: http://www.studiopress.com/
- *
- * Version: 2.3.0
- *
- * Text Domain: genesis-simple-hooks
- * Domain Path: /languages
- *
- * License: GNU General Public License v2.0 (or later)
- * License URI: http://www.opensource.org/licenses/gpl-license.php
+ * Genesis Simple Hooks allows easy access to the 50+ Action Hooks in the Genesis Theme.
  */
 class Genesis_Simple_Hooks {
 
@@ -102,8 +88,6 @@ class Genesis_Simple_Hooks {
 	 */
 	public function init() {
 
-		$this->load_plugin_textdomain();
-
 		add_action( 'admin_notices', array( $this, 'requirements_notice' ) );
 
 		// Because this is a Genesis-dependent plugin.
@@ -135,14 +119,6 @@ class Genesis_Simple_Hooks {
 
 	}
 
-	/**
-	 * Load the plugin textdomain, for translation.
-	 *
-	 * @since 2.2.0
-	 */
-	public function load_plugin_textdomain() {
-		load_plugin_textdomain( 'genesis-simple-hooks', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-	}
 
 	/**
 	 * All general includes.

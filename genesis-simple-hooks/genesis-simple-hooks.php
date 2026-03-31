@@ -7,7 +7,7 @@
 
 define( 'GENESIS_SIMPLE_HOOKS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GENESIS_SIMPLE_HOOKS_URL', plugins_url( '', __FILE__ ) );
-define( 'GENESIS_SIMPLE_HOOKS_VERSION', '2.3.0' );
+define( 'GENESIS_SIMPLE_HOOKS_VERSION', '2.3.2' );
 
 require_once GENESIS_SIMPLE_HOOKS_DIR . '/includes/class-genesis-simple-hooks.php';
 
@@ -30,3 +30,24 @@ function genesis_simple_hooks() {
  * Initialize the object on `plugins_loaded`.
  */
 add_action( 'plugins_loaded', array( Genesis_Simple_Hooks(), 'init' ) );
+
+/**
+ * Set up plugin updates from WP Engine.
+ *
+ * Only if the includes/class-genesis-simple-hooks-plugin-updater.php file exists. This file
+ * is not present in the version released to the WordPress.org repository.
+ */
+function genesis_simple_hooks_check_for_upgrades() {
+	if ( ! file_exists( __DIR__ . '/includes/class-genesis-simple-hooks-plugin-updater.php' ) ) {
+		return;
+	}
+
+	$properties = array(
+		'plugin_slug'     => 'genesis-simple-hooks',
+		'plugin_basename' => plugin_basename( dirname( __FILE__ ) . '/plugin.php' ),
+	);
+
+	require_once __DIR__ . '/includes/class-genesis-simple-hooks-plugin-updater.php';
+	new Genesis_Simple_Hooks_Plugin_Updater( $properties );
+}
+add_action( 'admin_init', 'genesis_simple_hooks_check_for_upgrades' );
